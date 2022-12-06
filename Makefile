@@ -1,7 +1,10 @@
 CC = cc
 CFLAGS = 
 SRCS =		philo.c \
-			input.c 
+			input.c \
+			output_exception.c \
+			fork_init.c 
+
 
 NAME = philo
 OBJS = $(SRCS:.c=.o)

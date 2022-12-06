@@ -41,7 +41,7 @@ static int	validate_argv(char *argv[])
 	return (1);
 }
 
-void	*exception_rootine(void *data)
+void	*exception_routine(void *data)
 {
 	long long	*time;
 
@@ -56,15 +56,15 @@ static int	exception_case(long long time)
 {
 	pthread_t	one;
 
-	pthread_create(&one, NULL, exception_rootine, &time);
+	pthread_create(&one, NULL, exception_routine, &time);
 	pthread_join(one, NULL);
-	return (0);
+	return (1);
 }
 
-int	make_info(t_input *info, char *argv[])
+int	make_info(t_info *info, int ac, char *argv[])
 {
-	if ((ac != 5 && ac != 6) || argv_check(argv) < 0)
-		return (-1);
+	if ((ac != 5 && ac != 6) || validate_argv(argv) < 0)
+		return (0);
 	info->philo_num = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
@@ -77,14 +77,14 @@ int	make_info(t_input *info, char *argv[])
 		return (exception_case(info->time_to_die));
 	info->guard = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!(info->guard))
-		return (-1);
-	pthread_mutex_init(info->guard, 0);
+		return (0);
 	info->print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!(info->print))
 	{
 		free (info->guard);
-		return (-1);
+		return (0);
 	}
+	pthread_mutex_init(info->guard, 0);
 	pthread_mutex_init(info->print, 0);
-	return (0);
+	return (1);
 }

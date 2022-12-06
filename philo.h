@@ -35,4 +35,11 @@ typedef struct s_philo
 	pthread_t		routine;
 }					t_philo;
 
+int				make_info(t_info *info, int argc, char *argv[]);
+
+int				*fork_value_init(int philo_num);
+pthread_mutex_t	*fork_init(int philo_num);
+
+int 			print_error(char *message);
+
 #endif
