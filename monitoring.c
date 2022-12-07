@@ -10,12 +10,22 @@ static void	check_someone_die(t_philo *philo, t_info *info)
 		{
 			pthread_mutex_lock(info->guard);
 			info->all_alive = 0;
-			pthread_mutex_lock(info->print);
-			printf("%lld %d died\n", get_relative_time(philo->info), philo->num);
+			print_action(philo, get_relative_time(info), philo->num, "died");
 			pthread_mutex_unlock(info->guard);
 		}
 	}
 	pthread_mutex_unlock(philo->guard);
+}
+
+static void end_meal(int philo_num, t_philo **philo)
+{
+	t_philo *philo_arr;
+
+	philo_arr = *philo;
+	while (philo_num >= 0) {
+		pthread_detach(philo_arr[philo_num].routine);
+		philo_num--;
+	}
 }
 
 void	monitoring(t_info *info, t_philo **philo)
@@ -41,6 +51,7 @@ void	monitoring(t_info *info, t_philo **philo)
 		if (cnt == info->philo_num)
 		{
 			pthread_mutex_lock(info->guard);
+			end_meal(info->philo_num - 1, philo);
 			info->all_alive = 0;
 			pthread_mutex_unlock(info->guard);
 		}

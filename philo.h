@@ -47,12 +47,13 @@ void			print_eating(t_philo *philo);
 void			print_sleeping(t_philo *philo);
 void			print_fork(t_philo *philo);
 void			print_thinking(t_philo *philo);
+void			print_action(t_philo *philo, long long time, int id, char *str);
 
 void			eatting(t_philo *philo);
 void			sleeping(t_philo *philo);
 void			thinking(t_philo *philo);
 
-void			take_left_fork(t_philo *philo);
+void			take_fork(t_philo *philo);
 void			take_right_fork(t_philo *philo);
 void			put_fork(t_philo *philo);
 

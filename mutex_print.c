@@ -1,16 +1,13 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mutex_print.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/20 10:15:20 by hajeong           #+#    #+#             */
-/*   Updated: 2022/11/20 10:24:42 by hajeong          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "philo.h"
+
+
+void	print_action(t_philo *philo, long long time, int id, char *str)
+{
+	pthread_mutex_lock(philo->info->print);
+	printf("%lld %d %s\n", time, id, str);
+	pthread_mutex_unlock(philo->info->print);
+} 
 
 void	print_eating(t_philo *philo)
 {

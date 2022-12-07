@@ -37,8 +37,7 @@ void	*routine(void *philo_data)
 		usleep(800);
 	while (is_all_alive(philo->info))
 	{
-		take_left_fork(philo);
-		take_right_fork(philo);
+		take_fork(philo);
 		eatting(philo);
 		put_fork(philo);
 		(philo->eat_count)++;
@@ -49,8 +48,7 @@ void	*routine(void *philo_data)
 			pthread_mutex_unlock(philo->guard);
 		}
 		sleeping(philo);
-		if (is_all_alive(philo->info))
-			thinking(philo);
+		thinking(philo);
 	}
 	return (NULL);
 }

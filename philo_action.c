@@ -18,7 +18,7 @@ void	eatting(t_philo *philo)
 	pthread_mutex_unlock(philo->guard);
 	if (is_all_alive(philo->info))
 	{
-		print_eating(philo);
+		print_action(philo, get_relative_time(philo->info), philo->num, "is eating");
 		while (time_check(philo->eat_time, philo->info->time_to_eat))
 			usleep(100);
 	}
@@ -31,7 +31,7 @@ void	sleeping(t_philo *philo)
 	if (is_all_alive(philo->info))
 	{
 		sleep_start = get_time();
-		print_sleeping(philo);
+		print_action(philo, get_relative_time(philo->info), philo->num, "is sleeping");
 		while (time_check(sleep_start, philo->info->time_to_sleep))
 			usleep(100);
 	}
@@ -39,5 +39,7 @@ void	sleeping(t_philo *philo)
 
 void	thinking(t_philo *philo)
 {
-	printf("%lld %d is thinking\n", get_relative_time(philo->info), philo->num);
+	if (is_all_alive(philo->info))
+		print_action(philo, get_relative_time(philo->info), philo->num, "is thinking");
+	//printf("%lld %d is thinking\n", get_relative_time(philo->info), philo->num);
 }
