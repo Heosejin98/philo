@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_init.c                                        :+:      :+:    :+:   */
+/*   philo_util.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:51:49 by hajeong           #+#    #+#             */
-/*   Updated: 2022/11/20 09:25:09 by hajeong          ###   ########.fr       */
+/*   Created: 2022/11/19 15:51:12 by hajeong           #+#    #+#             */
+/*   Updated: 2022/11/20 09:26:16 by hajeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-pthread_mutex_t	*fork_init(int philo_num)
+int	ft_error(char *str)
 {
-	pthread_mutex_t	*new;
-	int				i;
+	printf("%s\n", str);
+	return (0);
+}
 
-	i = 0;
-	new = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo_num);
-	if (new == NULL)
-		return (NULL);
-	while (i < philo_num)
-	{
-		pthread_mutex_init(&new[i], 0);
-		i++;
-	}
-	return (new);
+int	ft_error_free(char *str, t_info *info)
+{
+	free(info->guard);
+	return (ft_error(str));
+}
+
+long long	get_time(void)
+{
+	struct timeval	time;
+	long long		now_time;
+
+	gettimeofday(&time, 0);
+	now_time = time.tv_usec / 1000 + time.tv_sec * 1000;
+	return (now_time);
+}
+
+long long	get_relative_time(t_info *info)
+{
+	return (get_time() - info->start_time);
 }

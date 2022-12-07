@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   make_info.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/19 15:51:46 by hajeong           #+#    #+#             */
+/*   Updated: 2022/11/25 19:31:55 by hajeong          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static int	ft_atoi(char *str)
@@ -27,7 +39,7 @@ static int	ft_atoi(char *str)
 	return (number);
 }
 
-static int	validate_argv(char *argv[])
+static int	argv_check(char *argv[])
 {
 	int	i;
 
@@ -35,13 +47,13 @@ static int	validate_argv(char *argv[])
 	while (argv[i])
 	{
 		if (ft_atoi(argv[i]) < 0)
-			return (0);
+			return (-1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
-void	*exception_routine(void *data)
+void	*exception_rootine(void *data)
 {
 	long long	*time;
 
@@ -56,15 +68,15 @@ static int	exception_case(long long time)
 {
 	pthread_t	one;
 
-	pthread_create(&one, NULL, exception_routine, &time);
+	pthread_create(&one, NULL, exception_rootine, &time);
 	pthread_join(one, NULL);
-	return (1);
+	return (0);
 }
 
 int	make_info(t_info *info, int ac, char *argv[])
 {
-	if ((ac != 5 && ac != 6) || validate_argv(argv) < 0)
-		return (0);
+	if ((ac != 5 && ac != 6) || argv_check(argv) < 0)
+		return (-1);
 	info->philo_num = ft_atoi(argv[1]);
 	info->time_to_die = ft_atoi(argv[2]);
 	info->time_to_eat = ft_atoi(argv[3]);
@@ -77,14 +89,14 @@ int	make_info(t_info *info, int ac, char *argv[])
 		return (exception_case(info->time_to_die));
 	info->guard = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!(info->guard))
-		return (0);
+		return (-1);
+	pthread_mutex_init(info->guard, 0);
 	info->print = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!(info->print))
 	{
 		free (info->guard);
-		return (0);
+		return (-1);
 	}
-	pthread_mutex_init(info->guard, 0);
 	pthread_mutex_init(info->print, 0);
-	return (1);
+	return (0);
 }

@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_init.c                                        :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:51:49 by hajeong           #+#    #+#             */
-/*   Updated: 2022/11/20 09:25:09 by hajeong          ###   ########.fr       */
+/*   Created: 2022/11/19 15:51:41 by hajeong           #+#    #+#             */
+/*   Updated: 2022/11/20 11:30:29 by hajeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-pthread_mutex_t	*fork_init(int philo_num)
+void	memory_free(t_philo *philo, t_info info, pthread_mutex_t *fork)
 {
-	pthread_mutex_t	*new;
-	int				i;
+	int	i;
 
 	i = 0;
-	new = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo_num);
-	if (new == NULL)
-		return (NULL);
-	while (i < philo_num)
+	while (i < info.philo_num)
 	{
-		pthread_mutex_init(&new[i], 0);
+		pthread_join(philo[i].routine, 0);
+		pthread_mutex_destroy(philo[i].guard);
+		free(philo[i].guard);
+		pthread_mutex_destroy(&fork[i]);
 		i++;
 	}
-	return (new);
+	pthread_mutex_destroy(info.guard);
+	pthread_mutex_destroy(info.print);
+	free(philo);
+	free(fork);
 }

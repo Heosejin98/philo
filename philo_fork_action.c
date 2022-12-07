@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fork_init.c                                        :+:      :+:    :+:   */
+/*   philo_fork_action.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:51:49 by hajeong           #+#    #+#             */
-/*   Updated: 2022/11/20 09:25:09 by hajeong          ###   ########.fr       */
+/*   Created: 2022/11/19 15:51:28 by hajeong           #+#    #+#             */
+/*   Updated: 2022/11/20 10:22:48 by hajeong          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-pthread_mutex_t	*fork_init(int philo_num)
+void	take_left_fork(t_philo *philo)
 {
-	pthread_mutex_t	*new;
-	int				i;
+	pthread_mutex_lock(philo->left_fork);
+	if (is_all_alive(philo->info))
+		print_fork(philo);
+}
 
-	i = 0;
-	new = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo_num);
-	if (new == NULL)
-		return (NULL);
-	while (i < philo_num)
-	{
-		pthread_mutex_init(&new[i], 0);
-		i++;
-	}
-	return (new);
+void	take_right_fork(t_philo *philo)
+{
+	pthread_mutex_lock(philo->right_fork);
+	if (is_all_alive(philo->info))
+		print_fork(philo);
+}
+
+void	put_fork(t_philo *philo)
+{
+	pthread_mutex_unlock(philo->left_fork);
+	pthread_mutex_unlock(philo->right_fork);
 }
