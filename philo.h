@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:51:04 by hajeong           #+#    #+#             */
-/*   Updated: 2022/11/20 10:22:13 by hajeong          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -47,7 +36,6 @@ typedef struct s_philo
 }					t_philo;
 
 pthread_mutex_t	*fork_init(int philo_num);
-int				*fork_value_init(int philo_num);
 
 void			memory_free(t_philo *philo, t_info info, pthread_mutex_t *fork);
 
@@ -76,7 +64,6 @@ int				is_all_alive(t_info *info);
 void			*routine(void *philo_data);
 
 int				ft_error(char *str);
-int				ft_error_free(char *str, t_info *info);
 long long		get_time(void);
 long long		get_relative_time(t_info *info);
 

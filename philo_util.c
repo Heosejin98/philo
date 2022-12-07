@@ -1,27 +1,10 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   philo_util.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hajeong <hajeong@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 15:51:12 by hajeong           #+#    #+#             */
-/*   Updated: 2022/11/20 09:26:16 by hajeong          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include "philo.h"
 
 int	ft_error(char *str)
 {
 	printf("%s\n", str);
-	return (0);
-}
-
-int	ft_error_free(char *str, t_info *info)
-{
-	free(info->guard);
-	return (ft_error(str));
+	return (-1);
 }
 
 long long	get_time(void)
