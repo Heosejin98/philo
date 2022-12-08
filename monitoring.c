@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   monitoring.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 22:32:31 by seheo             #+#    #+#             */
+/*   Updated: 2022/12/08 22:42:04 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo.h"
 
@@ -12,6 +23,7 @@ static void	check_someone_die(t_philo *philo, t_info *info)
 			info->all_alive = 0;
 			pthread_mutex_lock(info->print);
 			printf("%lld %d died\n", get_relative_time(philo->info), philo->num);
+			pthread_mutex_unlock(info->print);
 			pthread_mutex_unlock(info->guard);
 		}
 	}

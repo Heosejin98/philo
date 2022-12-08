@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 22:32:56 by seheo             #+#    #+#             */
+/*   Updated: 2022/12/08 22:33:10 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
@@ -46,7 +57,6 @@ void			monitoring(t_info *info, t_philo **philo);
 void			print_eating(t_philo *philo);
 void			print_sleeping(t_philo *philo);
 void			print_fork(t_philo *philo);
-void			print_thinking(t_philo *philo);
 
 void			eatting(t_philo *philo);
 void			sleeping(t_philo *philo);

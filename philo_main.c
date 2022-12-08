@@ -1,32 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_main.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 22:26:20 by seheo             #+#    #+#             */
+/*   Updated: 2022/12/08 22:39:11 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo.h"
 
 static int	fork_malloc_error(t_info info)
 {
 	pthread_mutex_destroy(info.print);
-    pthread_mutex_destroy(info.guard);
+	pthread_mutex_destroy(info.guard);
 	free(info.print);
-    free(info.guard);
+	free(info.guard);
 	return (ft_error("fork_init error"));
 }
 
 static int	philo_init_malloc_error(t_info info, pthread_mutex_t *fork)
 {
-    int i = info.philo_num - 1;
-    
-    pthread_mutex_destroy(info.print);
-    pthread_mutex_destroy(info.guard);
-    while (i >= 0) 
-    {
-        pthread_mutex_destroy(&fork[i]);
-        i--;
-    }
+	int	i;
+
+	i = info.philo_num - 1;
+	pthread_mutex_destroy(info.print);
+	pthread_mutex_destroy(info.guard);
+	while (i >= 0)
+	{
+		pthread_mutex_destroy(&fork[i]);
+		i--;
+	}
 	free(fork);
 	free(info.print);
-    free(info.guard);
+	free(info.guard);
 	return (ft_error("philo_init error"));
 }
-
 
 int	main(int argc, char *argv[])
 {

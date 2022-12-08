@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_action.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seheo <seheo@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/12/08 22:32:22 by seheo             #+#    #+#             */
+/*   Updated: 2022/12/08 22:44:56 by seheo            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "philo.h"
 
@@ -20,7 +31,7 @@ void	eatting(t_philo *philo)
 	{
 		print_eating(philo);
 		while (time_check(philo->eat_time, philo->info->time_to_eat))
-			usleep(100);
+			usleep(philo->info->time_to_eat);
 	}
 }
 
